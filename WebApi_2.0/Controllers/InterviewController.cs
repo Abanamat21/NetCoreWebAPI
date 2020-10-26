@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using HRLib.Models.Domain.Enums;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing.Matching;
 using WebApi_2_0.Models;
+using WebApi_2_0.Models.InterfaceModels;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -18,40 +20,69 @@ namespace WebApi_2_0.Controllers
         /// Получить данные об интервью
         /// </summary>
         [HttpGet("{id}")]
-        public Interview Get(int id)
+        public IActionResult Get(int id)
         {
-            Interview ret = new Interview();
-            ret = new Interview(id);
-            return ret;
+            try
+            {
+                return Ok(Interview.SelectInterview(id));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
         }
 
         /// <summary>
         /// Изменить статусдобавить интервью
         /// </summary>
         [HttpPost]
-        public void Post(Interview interview)
+        public IActionResult Post(Interview interview)
         {
-            interview.dbInsert();
+            try
+            {
+                interview.Insert();
+                return Ok("success");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
         }
 
         /// <summary>
         /// Изменить статус интервью
         /// </summary>
         [HttpPut("{id}/{stateid}")]
-        public void Put(int id, int stateid)
+        public IActionResult Put(int id, int stateid)
         {
-            Interview oldInterview = new Interview(id);
-            oldInterview.dbUpdateState(id, (InterviewState)stateid);
+            try
+            {
+                var oldInterview = Interview.SelectInterview(id);
+                oldInterview.UpdateState(id, (InterviewState)stateid);
+                return Ok("success");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
         }
 
         /// <summary>
         /// Удалить интервью
         /// </summary>
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(int id)
         {
-            Interview interview = new Interview(id);
-            interview.dbDelete();
+            try
+            {
+                var interview = Interview.SelectInterview(id);
+                interview.Delete();
+                return Ok("success");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
         }
     }
 }

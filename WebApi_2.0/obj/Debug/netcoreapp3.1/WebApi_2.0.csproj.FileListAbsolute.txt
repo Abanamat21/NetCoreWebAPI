@@ -54,3 +54,5 @@ E:\ProgProjects\C#\WebApi\WebApi_2.0\bin\Debug\netcoreapp3.1\runtimes\win-x64\na
 E:\ProgProjects\C#\WebApi\WebApi_2.0\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\sni.dll
 E:\ProgProjects\C#\WebApi\WebApi_2.0\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
 E:\ProgProjects\C#\WebApi\WebApi_2.0\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
+E:\ProgProjects\C#\WebApi\WebApi_2.0\bin\Debug\netcoreapp3.1\HRLib.dll
+E:\ProgProjects\C#\WebApi\WebApi_2.0\bin\Debug\netcoreapp3.1\HRLib.pdb

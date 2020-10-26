@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace WebApi_2_0.Models
+namespace HRLib.Constants
 {
-    public static class Constants
+    public static class SqlConnStrings
     {
         public const String crmConnString = "Server=localhost;Integrated Security=true;Database=CRM;";
     }

@@ -1,52 +1,21 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
+using System.Threading.Tasks;
+using HRLib.Constants;
+using HRLib.Models.Domain.Abstracts;
+using HRLib.Models.Domain.Enums;
 
-namespace WebApi_2_0.Models
+namespace HRLib.Models.Domain.TSQL
 {
-    public class CandidateTask
+    public class TSQLCandidateTask : ACandidateTask
     {
-        /// <summary>
-        /// id, NOT NULL
-        /// </summary>
-        public int ID { get; set; }
-        /// <summary>
-        /// candidate_id, NOT NULL
-        /// </summary>
-        public Candidate Candidate { get; set; }
-        /// <summary>
-        /// descr, NULL
-        /// </summary>
-        public String Descr { get; set; }
-        /// <summary>
-        /// inspector, NULL
-        /// </summary>
-        public String InspectorName { get; set; }
-        /// <summary>
-        /// receipt_dtime, NOT NULL
-        /// </summary>
-        public DateTime ReceiptDate { get; set; }
-        /// <summary>
-        /// expected_completion_dtime, NOT NULL
-        /// </summary>
-        public DateTime ExpectedCompletionDate { get; set; }
-        /// <summary>
-        /// completion_dtime, NULL
-        /// </summary>
-        public DateTime FactCompletionDate { get; set; }
-        /// <summary>
-        /// status_id, NOT NULL
-        /// </summary>
-        public CandidateTaskState State { get; set; }
-        /// <summary>
-        /// inspector_rating, NULL
-        /// </summary>
-        public double InspectorRating { get; set; }
-
-        public CandidateTask()
+        public TSQLCandidateTask()
         {
         }
-        public CandidateTask(int id)
+        public TSQLCandidateTask(int id)
         {
             dbSelect(id);
         }
@@ -54,20 +23,19 @@ namespace WebApi_2_0.Models
         /// <summary>
         /// Получить задачу из БД
         /// </summary>   
-        private void dbSelect(int id)
+        public override void dbSelect(int id)
         {
-            using (SqlConnection conn = new SqlConnection(Constants.crmConnString))
+            using (var conn = new SqlConnection(SqlConnStrings.crmConnString))
             {
-                String cmdStr = "SELECT top 1 * FROM [dbo].[SelectCandidateTask] (@id)";
-                SqlCommand cmd = new SqlCommand(cmdStr, conn);
+                var cmd = new SqlCommand(SqlCommands.SelectCandidateTask, conn);
                 cmd.Parameters.AddWithValue("@id", id);
                 conn.Open();
 
-                SqlDataReader dr = cmd.ExecuteReader();
+                var dr = cmd.ExecuteReader();
                 if (dr.Read())
                 {
                     ID = dr.GetInt32("id");
-                    Candidate = new Candidate(dr.GetInt32("candidate_id"));
+                    Candidate = new TSQLCandidate(dr.GetInt32("candidate_id"));
                     Descr = dr.IsDBNull("descr") ? "" : dr.GetString("descr");
                     InspectorName = dr.IsDBNull("inspector") ? "" : dr.GetString("inspector");
                     ReceiptDate = dr.GetDateTime("receipt_dtime");
@@ -82,13 +50,12 @@ namespace WebApi_2_0.Models
         /// <summary>
         /// Занести новую задачу в БД
         /// </summary> 
-        public void dbInsert()
+        public override void dbInsert()
         {
             if (ExpectedCompletionDate == DateTime.MinValue) throw new ArgumentException("ExpectedCompletionDate is not seted");
-            using (SqlConnection conn = new SqlConnection(Constants.crmConnString))
+            using (var conn = new SqlConnection(SqlConnStrings.crmConnString))
             {
-                String cmdStr = "EXECUTE [dbo].[InsertCandidateTask] @candidate_id, @descr, @dtime, @expected_completion_dtime";
-                SqlCommand cmd = new SqlCommand(cmdStr, conn);
+                var cmd = new SqlCommand(SqlCommands.InsertCandidateTask, conn);
                 cmd.Parameters.AddWithValue("@candidate_id", Candidate.ID);
                 cmd.Parameters.AddWithValue("@descr", Descr ?? "");
                 cmd.Parameters.AddWithValue("@dtime", ReceiptDate == DateTime.MinValue ? DateTime.Now : ReceiptDate);
@@ -101,12 +68,11 @@ namespace WebApi_2_0.Models
         /// <summary>
         /// Отметить факт выполнения задачи
         /// </summary> 
-        public void dbUpdateCompleted(DateTime completionDTime)
+        public override void dbUpdateCompleted(DateTime completionDTime)
         {
-            using (SqlConnection conn = new SqlConnection(Constants.crmConnString))
+            using (var conn = new SqlConnection(SqlConnStrings.crmConnString))
             {
-                String cmdStr = "EXECUTE [dbo].[UpdateCandidateTaskCompleted] @id, @completiondtime";
-                SqlCommand cmd = new SqlCommand(cmdStr, conn);
+                var cmd = new SqlCommand(SqlCommands.UpdateCandidateTaskCompleted, conn);
                 cmd.Parameters.AddWithValue("@id", ID);
                 cmd.Parameters.AddWithValue("@completiondtime", completionDTime);
                 conn.Open();
@@ -117,12 +83,12 @@ namespace WebApi_2_0.Models
         /// <summary>
         /// Установить задаче оценку
         /// </summary> 
-        public void dbUpdateChecked(String inspector, float rating)
+        public override void dbUpdateChecked(String inspector, float rating)
         {
-            using (SqlConnection conn = new SqlConnection(Constants.crmConnString))
+            using (var conn = new SqlConnection(SqlConnStrings.crmConnString))
             {
-                String cmdStr = "EXECUTE [dbo].[UpdateCandidateTaskChecked] @id, @inspector, @rating";
-                SqlCommand cmd = new SqlCommand(cmdStr, conn);
+                var cmdStr = SqlCommands.UpdateCandidateTaskChecked;
+                var cmd = new SqlCommand(cmdStr, conn);
                 cmd.Parameters.AddWithValue("@id", ID);
                 cmd.Parameters.AddWithValue("@inspector", inspector);
                 cmd.Parameters.AddWithValue("@rating", rating);
@@ -134,12 +100,11 @@ namespace WebApi_2_0.Models
         /// <summary>
         /// Удалить задачу из БД
         /// </summary>  
-        public void dbDelete()
+        public override void dbDelete()
         {
-            using (SqlConnection conn = new SqlConnection(Constants.crmConnString))
+            using (var conn = new SqlConnection(SqlConnStrings.crmConnString))
             {
-                String cmdStr = "EXECUTE [dbo].[DeleteCandidateTask] @id";
-                SqlCommand cmd = new SqlCommand(cmdStr, conn);
+                var cmd = new SqlCommand(SqlCommands.DeleteCandidateTask, conn);
                 cmd.Parameters.AddWithValue("@id", ID);
                 conn.Open();
                 cmd.ExecuteNonQuery();
@@ -147,13 +112,4 @@ namespace WebApi_2_0.Models
             }
         }
     }
-
-    public enum CandidateTaskState
-    {
-        Sended = 1,
-        Finished = 2,
-        Checked = 3
-    }
-
-
 }

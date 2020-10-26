@@ -4,9 +4,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using WebApi_2_0.Models;
+using WebApi_2_0.Models.InterfaceModels;
 using Newtonsoft.Json;
 using System.Diagnostics;
+using WebApi_2_0.Models.Interfaces;
+using WebApi_2_0.Models.Services;
 
 namespace WebApi_2_0.Controllers
 {
@@ -18,50 +20,84 @@ namespace WebApi_2_0.Controllers
         /// Знести данные о соискателе, запланировать собеседование и выдать задание
         /// </summary>
         [HttpPost("NewCandidate")]
-        public void NewCandidatePost(newCandidateParams newCandidate)
+        public IActionResult NewCandidatePost(NewCandidateParams newCandidate)
         {
-            newCandidate.InsertNewCandidate();
+            try
+            {
+                newCandidate.InsertNewCandidate();
+                return Ok("success");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
         }
 
         /// <summary>
         /// Отчет о результатах выполнения задач
         /// </summary>  
         [HttpGet("Report/{start}/{end}")]
-        public List<ReportRow> ReportGet(DateTime start, DateTime end)
+        public IActionResult ReportGet(DateTime start, DateTime end)
         {
-            List<ReportRow> rows = new List<ReportRow>();
-            rows = Candidate.CandidatesReport(start, end);
-            return rows;
+            try
+            {
+                return Ok(new CandidatesReport(start, end));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
         }
 
         /// <summary>
         /// Полчить данные о соискателе
         /// </summary>        
         [HttpGet("{id}")]
-        public Candidate Get(int id)
+        public IActionResult Get(int id)
         {
-            Candidate ret = new Candidate();
-            ret = new Candidate(id);
-            return ret;
+            try
+            {
+                return Ok(Candidate.SelectCandidate(id));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
         }
 
         /// <summary>
         /// Добавить соискателя
         /// </summary>  
         [HttpPost]
-        public void Post(Candidate candidate)
+        public IActionResult Post(Candidate candidate)
         {
-            candidate.dbInsert();
+            try
+            {
+                candidate.Insert();
+                return Ok("success");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
         }
 
         /// <summary>
         /// Удалить соискателя
         /// </summary>  
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(int id)
         {
-            Candidate candidate = new Candidate(id);
-            candidate.dbDelete();
+            try
+            {
+                var candidate = Candidate.SelectCandidate(id);
+                candidate.Delete();
+                return Ok("success");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
         }
 
     }

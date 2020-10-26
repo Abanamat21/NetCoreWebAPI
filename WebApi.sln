@@ -5,7 +5,9 @@ VisualStudioVersion = 16.0.30523.141
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApi_2.0", "WebApi_2.0\WebApi_2.0.csproj", "{88B67AB7-07CF-41E3-BFB6-4E691F64B400}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskCrowler", "TaskCrowler\TaskCrowler.csproj", "{F47393C1-CE2F-439A-8A50-64A717C16917}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskCrowler", "TaskCrowler\TaskCrowler.csproj", "{F47393C1-CE2F-439A-8A50-64A717C16917}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HRLib", "HRLib\HRLib.csproj", "{63A0BF77-6096-4842-A263-005E87F0C1F4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{F47393C1-CE2F-439A-8A50-64A717C16917}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F47393C1-CE2F-439A-8A50-64A717C16917}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F47393C1-CE2F-439A-8A50-64A717C16917}.Release|Any CPU.Build.0 = Release|Any CPU
+		{63A0BF77-6096-4842-A263-005E87F0C1F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{63A0BF77-6096-4842-A263-005E87F0C1F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{63A0BF77-6096-4842-A263-005E87F0C1F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{63A0BF77-6096-4842-A263-005E87F0C1F4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

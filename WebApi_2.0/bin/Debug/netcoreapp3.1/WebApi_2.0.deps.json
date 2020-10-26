@@ -24,6 +24,7 @@
     ".NETCoreApp,Version=v3.1": {
       "WebApi_2.0/1.0.0": {
         "dependencies": {
+          "HRLib": "1.0.0",
           "Microsoft.AspNetCore.Mvc.NewtonsoftJson": "3.1.8",
           "Newtonsoft.Json": "12.0.3",
           "System.Data.SqlClient": "4.8.2",
@@ -452,6 +453,17 @@
         }
       },
       "System.Security.Principal.Windows/4.7.0": {},
+      "HRLib/1.0.0": {
+        "dependencies": {
+          "System.Data.SqlClient": "4.8.2"
+        },
+        "runtime": {
+          "HRLib.dll": {}
+        },
+        "compile": {
+          "HRLib.dll": {}
+        }
+      },
       "Microsoft.AspNetCore.Antiforgery/3.1.0.0": {
         "compile": {
           "Microsoft.AspNetCore.Antiforgery.dll": {}
@@ -2249,6 +2261,11 @@
       "sha512": "sha512-ojD0PX0XhneCsUbAZVKdb7h/70vyYMDYs85lwEI+LngEONe/17A0cFaRFqZU+sOEidcVswYWikYOQ9PPfjlbtQ==",
       "path": "system.security.principal.windows/4.7.0",
       "hashPath": "system.security.principal.windows.4.7.0.nupkg.sha512"
+    },
+    "HRLib/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     },
     "Microsoft.AspNetCore.Antiforgery/3.1.0.0": {
       "type": "referenceassembly",
