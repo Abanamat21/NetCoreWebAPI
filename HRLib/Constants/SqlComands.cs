@@ -8,7 +8,7 @@ namespace HRLib.Constants
     public static class SqlCommands
     {
         public const String SelectCandidate      = "SELECT top 1 * FROM [dbo].[SelectCandidate] (@id)";
-        public const String CandidatesReport     = "SELECT candidate, position, rating FROM [dbo].[CandidatesReport] (@start, @end)";
+        public const String CandidatesReport     = "SELECT candidateid, candidate, position, rating FROM [dbo].[CandidatesReport] (@start, @end)";
         public const String InsertCandidate      = "EXECUTE [dbo].[InsertCandidate] @candidate, @phone_number, @position, @hr_mail";
         public const String NewCandidate         = "EXECUTE [dbo].[NewCandidate] @candidate, @phone_number, @position, @hr_mail, @dtime, @interviewer, @expected_completion_dtime";
         public const String DeleteCandidate      = "EXECUTE [dbo].[DeleteCandidate] @id";

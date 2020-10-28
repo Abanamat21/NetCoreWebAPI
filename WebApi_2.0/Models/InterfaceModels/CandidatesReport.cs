@@ -9,7 +9,7 @@ namespace WebApi_2_0.Models.InterfaceModels
 {
     public class CandidatesReport
     {
-        public List<CandidatesReportRow> rows;
+        public List<CandidatesReportRow> rows = new List<CandidatesReportRow>();
 
         private static IDomainCaster domainCaster = new TSQLCaster();
 

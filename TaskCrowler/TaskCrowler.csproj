@@ -10,7 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\WebApi_2.0\WebApi_2.0.csproj" />
+    <ProjectReference Include="..\HRLib\HRLib.csproj" />
   </ItemGroup>
 
 </Project>

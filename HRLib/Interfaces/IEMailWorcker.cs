@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace WebApi_2_0.Models.Interfaces
+namespace HRLib.Interfaces
 {
     /// <summary>
     /// Интерфейс взаимодействия с сервисом по отправке писем

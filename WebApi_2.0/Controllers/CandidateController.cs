@@ -36,12 +36,15 @@ namespace WebApi_2_0.Controllers
         /// <summary>
         /// Отчет о результатах выполнения задач
         /// </summary>  
-        [HttpGet("Report/{start}/{end}")]
-        public IActionResult ReportGet(DateTime start, DateTime end)
+        [HttpGet("Report/{start}/{end}/{candidateId}")]
+        public IActionResult ReportGet(DateTime start, DateTime end, int candidateId)
         {
             try
             {
-                return Ok(new CandidatesReport(start, end));
+                var report = new CandidatesReport(start, end);
+                if (candidateId != 0)
+                    report.rows = report.rows.Where(x => x.candidateId == candidateId).ToList();
+                return Ok(report);
             }
             catch (Exception ex)
             {

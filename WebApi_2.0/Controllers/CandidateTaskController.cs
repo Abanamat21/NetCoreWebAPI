@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using HRLib.Interfaces;
+using HRLib.Services;
 using Microsoft.AspNetCore.Mvc;
 using WebApi_2_0.Models.InterfaceModels;
-using WebApi_2_0.Models.Interfaces;
-using WebApi_2_0.Models.Services;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 

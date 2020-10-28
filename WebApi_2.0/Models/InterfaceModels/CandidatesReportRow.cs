@@ -6,7 +6,12 @@ using System.Threading.Tasks;
 namespace WebApi_2_0.Models.InterfaceModels
 {
     public class CandidatesReportRow
-    {        
+    {
+        /// <summary>
+        /// ИД соискателя
+        /// </summary>
+        public int candidateId { get; set; }
+
         /// <summary>
         /// Имя соискателя
         /// </summary>

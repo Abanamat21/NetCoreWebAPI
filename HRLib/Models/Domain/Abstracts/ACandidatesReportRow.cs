@@ -11,6 +11,10 @@ namespace HRLib.Models.Domain.Abstracts
     public abstract class ACandidatesReportRow
     {
         /// <summary>
+        /// ИД соискателя
+        /// </summary>
+        public int candidateId { get; set; }
+        /// <summary>
         /// Имя соискателя
         /// </summary>
         public String candidateName { get; set; }
@@ -24,5 +28,6 @@ namespace HRLib.Models.Domain.Abstracts
         /// Оценка последней задачи.
         /// </summary>
         public String lastTaskRating { get; set; }
+
     }
 }

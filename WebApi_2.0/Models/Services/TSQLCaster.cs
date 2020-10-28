@@ -117,6 +117,7 @@ namespace WebApi_2_0.Models.Services
         public CandidatesReportRow GetCandidatesReportRow(ACandidatesReportRow aCandidatesReportRow)
         {
             CandidatesReportRow row = new CandidatesReportRow();
+            row.candidateId = aCandidatesReportRow.candidateId;
             row.candidateName = aCandidatesReportRow.candidateName;
             row.candidatePosision = aCandidatesReportRow.candidatePosision;
             row.lastTaskRating = aCandidatesReportRow.lastTaskRating;

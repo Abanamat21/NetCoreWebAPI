@@ -27,6 +27,7 @@ namespace HRLib.Models.Domain.TSQL
                 {
                     Rows.Add(new TSQLCandidatesReportRow()
                     {
+                        candidateId = dr.GetInt32("candidateid"),
                         candidateName = dr.IsDBNull("candidate") ? "" : dr.GetString("candidate"),
                         candidatePosision = dr.IsDBNull("position") ? "" : dr.GetString("position"),
                         lastTaskRating = dr.IsDBNull("rating") ? "" : dr.GetDouble("rating").ToString()
